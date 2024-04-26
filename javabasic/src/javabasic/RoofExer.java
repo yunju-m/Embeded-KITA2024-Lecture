@@ -97,7 +97,7 @@ public class RoofExer {
 		//   *
 		//  *
 		//*****
-		keynum = 4;
+		keynum = 4; 
 		for (int i = 0; i < keynum+1; i++) {
 			for (int j = 0; j < keynum+1; j++) {
 				if (i % keynum == 0 || i + j == keynum) {
@@ -127,8 +127,6 @@ public class RoofExer {
 			}
 			System.out.println();
 		}
-		System.out.println();
-
 
 		// 별찍기8 (다이아몬드)
 		//  *
@@ -136,8 +134,32 @@ public class RoofExer {
 		//*****
 		// ***
 		//  *
+		keynum = 4;
+		for (int i = 0; i < keynum; i++) {
+			for (int j = i; j < keynum-1; j++) {
+				System.out.print(" ");
+			}
+			for (int j = 0; j < i; j++) {
+				System.out.print("*");
+			}
+			for (int j = 0; j < i-1; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
 		
-		// 코드 수행
+		for (int i = 0; i < keynum-2; i++) {
+			for (int j = 0; j < i+1; j++) {
+				System.out.print(" ");
+			}
+			for (int j = i; j < keynum-2; j++) {
+				System.out.print("*");
+			}
+			for (int j = i+1; j < keynum-2; j++) {
+				System.out.print("*");
+			}
+			System.out.println();
+		}
 
 	}
 
