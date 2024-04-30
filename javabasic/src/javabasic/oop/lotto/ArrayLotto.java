@@ -32,11 +32,13 @@
  *   - 소스코드(java파일)와 실행결과 캡춰이미지 압축해서 realchoky@naver.com으로 이름써서 제출
  */
 
-package javabasic;
+package javabasic.oop.lotto;
 
 public class ArrayLotto {
 
 	public static void main(String[] args) {
+		
+		
 
 		// Math.random() : 0.0<=랜덤실수<1.0
 		// (int)(Math.random()*45)+1 : 1~45 중 랜덤한 정수
