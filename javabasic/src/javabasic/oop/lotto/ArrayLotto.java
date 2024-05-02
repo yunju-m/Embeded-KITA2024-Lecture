@@ -34,19 +34,25 @@
 
 package javabasic.oop.lotto;
 
+import java.util.List;
+
 public class ArrayLotto {
 
 	public static void main(String[] args) {
-		
-		
 
-		// Math.random() : 0.0<=랜덤실수<1.0
-		// (int)(Math.random()*45)+1 : 1~45 중 랜덤한 정수
+		LottoGame lottoGame = new LottoGame();
+		List<Integer> userLottoList, computerLottoList;
 
-		// 중복제거 안된 7개의 1~45 범위의 랜덤 정수
-		for (int i = 0; i < 7; i++) {
-			System.out.println((int) (Math.random() * 45) + 1);
+		userLottoList = lottoGame.inputUserLotto();
+		computerLottoList = lottoGame.inputComputerLotto();
+
+		for (int comLottoNum : computerLottoList) {
+			System.out.print(comLottoNum + " ");
 		}
+
+		Lotto lotto = new Lotto(userLottoList, computerLottoList);
+		lotto.evaluateLottoRank();
+		System.out.println("\n로또 결과: " + lotto.getLottoRank());
 
 	}
 
