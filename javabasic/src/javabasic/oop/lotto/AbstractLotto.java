@@ -1,5 +1,7 @@
 package javabasic.oop.lotto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -55,26 +57,50 @@ public abstract class AbstractLotto implements ILotto {
 
 	@Override
 	public int[] transStringToInt(String[] userLottoStringArray) {
-		return null;
+		return Arrays.stream(userLottoStringArray)
+				.mapToInt(Integer::parseInt)
+				.toArray();
 	}
 
 	@Override
 	public List<Integer> transArrayToList(int[] userLottoArray){
+		List<Integer> userLottoList = new ArrayList<>();
+		for (int lottoNum : userLottoArray)
+			userLottoList.add(lottoNum);
 		return userLottoList;
 	}
 	
 	@Override
 	public int countSameLottoNumbers() {
+		for (int lottoNum : userLottoList) {
+			if (computerLottoList.contains(lottoNum)) {
+				lottoCount++;
+			}
+		}
 		return lottoCount;
 	}
 
 	@Override
 	public boolean sameLastLottoNumber() {
-		return false;
+		int lastIndex = userLottoList.size()-1;
+		return userLottoList.get(lastIndex) == computerLottoList.get(lastIndex);
 	}
 
 	@Override
 	public void calculateLottoRank() {
+		if (lottoCount == 7 || (lottoCount == 6 && !sameLastLottoNumber())) {
+			lottoRank = "1등";
+		} else if (lottoCount == 6 && sameLastLottoNumber()) {
+			lottoRank = "2등";
+		} else if (lottoCount == 5) {
+			lottoRank = "3등";
+		} else if (lottoCount == 4) {
+			lottoRank = "4등";
+		} else if (lottoCount == 3) {
+			lottoRank = "5등";
+		} else {
+			lottoRank = "꽝~! 다음기회에";
+		}
 	}
 
 
