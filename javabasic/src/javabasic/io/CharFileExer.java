@@ -34,6 +34,7 @@ public class CharFileExer {
 			ioe.printStackTrace();
 		} finally {
 			try {
+				fw2.close();
 				fr.close();
 				fw.close();
 			} catch (IOException ioe) {
