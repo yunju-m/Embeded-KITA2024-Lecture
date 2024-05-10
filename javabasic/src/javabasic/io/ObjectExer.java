@@ -33,7 +33,7 @@ public class ObjectExer {
 			ois = new ObjectInputStream(fis);
 			Object hongObj = ois.readObject();	// 역직렬화 메소드
 			Object kangObj = ois.readObject();
-			
+
 			Person readHong = (Person)hongObj;
 			Person readKang = (Person)kangObj;
 			System.out.println(readHong);
@@ -45,7 +45,14 @@ public class ObjectExer {
 			fnfe.printStackTrace();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-		} 
+		} finally {
+			try {
+				ois.close();
+				oos.close();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
 
 
 
