@@ -56,6 +56,7 @@ public class FileCopyer {
 						fos.write(readBytesArr);
 						if (readByteCount < readBytesLen) break;
 					}
+					fos.flush();
 					restart = false;
 				} catch (FileNotFoundException fnfe) {
 					fnfe.printStackTrace();
