@@ -30,7 +30,6 @@ public class CrawlingExer {
 		InputStream is = null;
 
 		String readLine = null;
-		//		String stripReadLine = null;
 		File file = null;
 		BufferedReader br = null;
 		BufferedWriter bw = null;
@@ -60,7 +59,7 @@ public class CrawlingExer {
 				if (prodStartIndex > -1 && prodEndIndex > -1) {
 					prodName = readLine.substring(prodStartIndex+ prodStartStr.length(), prodEndIndex);
 					bw.write("상품명: ");
-					bw.write(readLine.substring(prodStartIndex+ prodStartStr.length(), prodEndIndex) + '\n');
+					bw.write(prodName + '\n');
 				}
 
 				// 가격 추출
@@ -71,7 +70,7 @@ public class CrawlingExer {
 				if (priceStartIndex > -1 && priceEndIndex > -1) {
 					prodPrice = readLine.substring(priceStartIndex + priceStartStr.length(), priceEndIndex);
 					bw.write("가격: ");
-					bw.write(readLine.substring(priceStartIndex + priceStartStr.length(), priceEndIndex) + '\n');
+					bw.write(prodPrice + '\n');
 				}
 
 				// 적립포인트 추출
@@ -82,9 +81,9 @@ public class CrawlingExer {
 				if (pointStartIndex > -1 && pointEndIndex > -1) {
 					prodPoint = readLine.substring(pointStartIndex + pointStartStr.length(), pointEndIndex);
 					bw.write("적립포인트: ");
-					bw.write(readLine.substring(pointStartIndex + pointStartStr.length(), pointEndIndex) + '\n');
+					bw.write(prodPoint + '\n');
 				}
-
+				
 				// ProductInfo 객체로 저장
 				if (prodName!=null && prodPrice!=null && prodPoint!=null) {
 					prodPrice = prodPrice.replace(",", "");
@@ -99,17 +98,6 @@ public class CrawlingExer {
 					prodPoint = null;
 				}
 
-				//				stripReadLine = readLine.strip();
-				//				if (stripReadLine.contains("<strong class=\"item_name\">")) {
-				//					bw.write("상품명: ");
-				//					bw.write(stripReadLine.substring(stripReadLine.indexOf(">")+1, stripReadLine.indexOf("</strong>")) + '\n');
-				//				} else if (stripReadLine.contains("<span  style=\"\"")) {
-				//					bw.write("판매가: ");
-				//					bw.write(stripReadLine.substring(stripReadLine.indexOf(">")+1, stripReadLine.indexOf("</span>")) + '\n');
-				//				} else if (stripReadLine.contains("alt=\"마일리지\"")) {
-				//					bw.write("적립포인트:");
-				//					bw.write(stripReadLine.substring(stripReadLine.indexOf(">")+1) + '\n');
-				//				}
 			}
 			bw.flush();
 
