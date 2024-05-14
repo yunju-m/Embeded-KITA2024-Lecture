@@ -21,10 +21,6 @@ public class ChattingClient {
 			s = new Socket("192.168.8.12", 4444);	// 외부 서버 접속
 			if (s!=null) {
 				System.out.println("채팅서버에 연결되었습니다! " + s);
-				OutputStream os = s.getOutputStream();	// 서버에 메시지 전송
-				OutputStreamWriter osw = new OutputStreamWriter(os);
-				osw.write("Hello~ I'm Chatting Client~~~");
-				osw.flush();
 			}
 		} catch (UnknownHostException ukhe) {
 			ukhe.printStackTrace();
