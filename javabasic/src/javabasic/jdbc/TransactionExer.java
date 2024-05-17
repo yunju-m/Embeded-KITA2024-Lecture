@@ -41,6 +41,8 @@ public class TransactionExer {
 			} catch (SQLException sqle) {
 				sqle.printStackTrace();
 			}
+		} finally {
+			ConnectionUtil.closeConnection(bm.conn);
 		}
 
 	} // main
