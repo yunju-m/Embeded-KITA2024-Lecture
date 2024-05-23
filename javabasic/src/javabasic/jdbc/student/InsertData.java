@@ -17,13 +17,10 @@ public class InsertData {
 		conn = ConnectionUtil.getConnection();
 	}
 
-	List<Subject> subjectList;	// 학생 리스트
-	List<Student> studentList;	// 과목 리스트
+	List<Subject> subjectList; // 과목 리스트
+	List<Student> studentList; // 학생 리스트
 
-	public static void main(String[] args) {
-
-		// 객체 생성
-		InsertData insertData = new InsertData();
+	public void startInsertData() {
 
 		// 과목 데이터를 배열로 저장
 		String[] subjectArr = { "국어", "영어", "수학", "과학", "역사" };
@@ -38,30 +35,33 @@ public class InsertData {
 			// 과목 데이터 저장
 			for (int i = 0; i < subjectArrLen; i++) {
 				Subject subject = new Subject(0, subjectArr[i]);
-				insertData.insertSubject(subject);
+				insertSubject(subject);
 			}
 
 			// 학생리스트, 과목리스트 생성
-			insertData.studentList = new ArrayList<Student>();
-			insertData.subjectList = new ArrayList<Subject>();
+			studentList = new ArrayList<Student>();
+			subjectList = new ArrayList<Subject>();
 			int studentArrLen = studentArr.length;
 
-			// 학생리스트에 학생 객체를 추가
 			for (int i = 0; i < studentArrLen; i++) {
 				int studentSubArrLen = studentSubArr[i].length;
+				subjectList = new ArrayList<Subject>();
 				for (int j = 0; j < studentSubArrLen; j++) {
-					insertData.subjectList.add(new Subject(studentSubArr[i][j], ""));
+					// 과목리스트에 학생별 수강과목들 추가
+					subjectList.add(new Subject(studentSubArr[i][j], subjectArr[studentSubArr[i][j] - 1]));
 				}
+				// 학생 객체 생성
 				Student student = new Student(0, studentArr[i][0], Integer.parseInt(studentArr[i][1]), studentArr[i][2],
-						insertData.subjectList);
-				insertData.insertStudent(student);
-				insertData.studentList.add(student);
-				insertData.subjectList.clear();
+						subjectList);
+				// 학생 데이터 저장
+				insertStudent(student);
+				// 학생리스트에 학생 객체를 추가
+				studentList.add(student);
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		} finally {
-			ConnectionUtil.closeConnection(insertData.conn);
+			ConnectionUtil.closeConnection(conn);
 		}
 	}
 
@@ -87,8 +87,8 @@ public class InsertData {
 	}
 
 	// 학생리스트 반환 메소드
-	public List<Student> getStudnetList() {
-		return this.studentList;
+	public List<Student> getStudentList() {
+		return studentList;
 	}
 
 }

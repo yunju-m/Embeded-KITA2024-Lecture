@@ -32,7 +32,7 @@ public class Subject {
 
 	@Override
 	public String toString() {
-		return "subName=" + subName + "/";
+		return subName + "/";
 	}
 
 }

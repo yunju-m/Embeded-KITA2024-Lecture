@@ -25,33 +25,34 @@ public class StudentMain {
 
 		// 객체 생성
 		StudentMain sm = new StudentMain();
+		CreateDDL createDDL = new CreateDDL();
+		InsertData insertData = new InsertData();
 
 		try {
+			createDDL.startCreateDDL();
+			insertData.startInsertData();
 			// 조인 수행 결과 행들의 커서(ResultSet)
 			ResultSet rs = sm.getJoinedResultSet();
 
 			// 학생리스트
-			List<Student> studentList = new InsertData().getStudnetList();
-			int studentListLen = studentList.size();
+			List<Student> studentList = insertData.getStudentList();
 
 			// 학생 수만큼 반복
-			for (int i = 0; i < studentListLen; i++) {
-				// 과목리스트 생성
+			for (Student st : studentList) {
+				// 과목리스트 생성(초기화)
 				List<Subject> subList = new ArrayList<Subject>();
 				// 학생별 과목의 수
-				int subjectListSize = studentList.get(i).getSubjectList().size();
+				int subjectListSize = st.getSubjectList().size();
 
 				for (int j = 0; j < subjectListSize; j++) {
-					subList.add(new Subject(rs.getInt("subno"), rs.getString("subname")));
 					rs.next();
+					subList.add(new Subject(rs.getInt("subno"), rs.getString("subname")));
 				}
-
 				// Student 객체 생성
 				Student student = new Student(rs.getInt("sno"), rs.getString("sname"), rs.getInt("sage"),
 						rs.getString("sgender"), subList);
 				System.out.println(student); // => student.toString()
 			}
-
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
@@ -69,24 +70,4 @@ public class StudentMain {
 		return stmt.executeQuery(joinSql);
 	}
 
-	// // 학생과목 조인 출력 함수
-	// private void joinStudentSubject(String sql) throws SQLException {
-	//
-	// int studentListLen = studentList.size();
-	// for (int i = 0; i < studentListLen; i++) {
-	// List<Subject> subList = new ArrayList<Subject>();
-	// int recentSno = rs.getInt("sno");
-	// subList.add(new Subject(rs.getInt("subno"), rs.getString("subname")));
-	// rs.next();
-	// }
-	// Student student = new Student(
-	// rs.getInt("sno"),
-	// rs.getString("sname"),
-	// rs.getInt("sage"),
-	// rs.getString("sgender"),
-	// subList
-	// );
-	// System.out.println(student.toString());
-	// }
-	// }
 }

@@ -14,18 +14,17 @@ public class CreateDDL {
 		conn = ConnectionUtil.getConnection();
 	}
 
-	public static void main(String[] args) {
+	public void startCreateDDL() {
 		// 객체 생성
-		CreateDDL createDDL = new CreateDDL();
-		String subjectSql = createDDL.createSubjectSql();
-		String studentSql = createDDL.createStudentSql();
-		String subjectSequenceSql = createDDL.createSubjectSequenceSql();
-		String studentSequenceSql = createDDL.createStudentSequenceSql();
+		String subjectSql = createSubjectSql();
+		String studentSql = createStudentSql();
+		String subjectSequenceSql = createSubjectSequenceSql();
+		String studentSequenceSql = createStudentSequenceSql();
 
 		Statement stmt = null;
 		try {
 			// Statement 생성 후 쿼리 실행
-			stmt = createDDL.conn.createStatement();
+			stmt = conn.createStatement();
 			stmt.execute(subjectSql);
 			stmt.execute(studentSql);
 			stmt.execute(subjectSequenceSql);
@@ -35,7 +34,7 @@ public class CreateDDL {
 		} finally {
 			try {
 				stmt.close();
-				ConnectionUtil.closeConnection(createDDL.conn);
+				ConnectionUtil.closeConnection(conn);
 			} catch (SQLException sqle) {
 				sqle.printStackTrace();
 			}
