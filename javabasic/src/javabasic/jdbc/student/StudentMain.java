@@ -33,7 +33,6 @@ public class StudentMain {
 			insertData.startInsertData();
 			// 조인 수행 결과 행들의 커서(ResultSet)
 			ResultSet rs = sm.getJoinedResultSet();
-
 			// 학생리스트
 			List<Student> studentList = insertData.getStudentList();
 
@@ -62,9 +61,11 @@ public class StudentMain {
 	private ResultSet getJoinedResultSet() throws SQLException {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" select s.sno sno, s.sname sname, s.sage sage, s.sgender sgender,");
-		sb.append(" sub.subno subno, sub.subname subname");
-		sb.append(" from student s, subject sub");
-		sb.append(" where s.subno = sub.subno");
+		sb.append(" sub.subno subno, sub.subname subname ");
+		sb.append(" from student s, subject sub, studentsubject stsub ");
+		sb.append(" where s.sno = stsub.sno ");
+		sb.append(" and sub.subno = stsub.subno ");
+		sb.append(" order by s.sno ");
 		String joinSql = sb.toString();
 		stmt = conn.createStatement();
 		return stmt.executeQuery(joinSql);

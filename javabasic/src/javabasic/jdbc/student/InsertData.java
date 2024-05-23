@@ -29,6 +29,9 @@ public class InsertData {
 		// 학생 데이터 배열로 저장
 		String[][] studentArr = { { "홍길동", "20", "M" }, { "김길순", "30", "F" }, { "최길동", "40", "M" },
 				{ "박길순", "50", "F" }, { "유길동", "60", "M" } };
+		int studentArrLen = studentArr.length;
+
+		// 학생별 수강과목 데이터 배열로 저장
 		int[][] studentSubArr = { { 1, 2, 3 }, { 1, 2 }, { 2, 3 }, { 1, 3 }, { 1, 2, 3, 4 } };
 
 		try {
@@ -41,7 +44,6 @@ public class InsertData {
 			// 학생리스트, 과목리스트 생성
 			studentList = new ArrayList<Student>();
 			subjectList = new ArrayList<Subject>();
-			int studentArrLen = studentArr.length;
 
 			for (int i = 0; i < studentArrLen; i++) {
 				int studentSubArrLen = studentSubArr[i].length;
@@ -51,10 +53,12 @@ public class InsertData {
 					subjectList.add(new Subject(studentSubArr[i][j], subjectArr[studentSubArr[i][j] - 1]));
 				}
 				// 학생 객체 생성
-				Student student = new Student(0, studentArr[i][0], Integer.parseInt(studentArr[i][1]), studentArr[i][2],
-						subjectList);
+				Student student = new Student(i + 1, studentArr[i][0], Integer.parseInt(studentArr[i][1]),
+						studentArr[i][2], subjectList);
 				// 학생 데이터 저장
 				insertStudent(student);
+				// 학생별 과목 데이터 저장
+				insertStudentSubject(student);
 				// 학생리스트에 학생 객체를 추가
 				studentList.add(student);
 			}
@@ -75,13 +79,21 @@ public class InsertData {
 
 	// 학생 등록 메소드
 	private void insertStudent(Student student) throws SQLException {
+		String sql = " insert into student values(student_seq.nextval, ?, ?, ?) ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, student.getSname());
+		pstmt.setInt(2, student.getSage());
+		pstmt.setString(3, student.getSgender());
+		pstmt.executeUpdate();
+	}
+
+	// 학생별 과목 등록 메소드
+	private void insertStudentSubject(Student student) throws SQLException {
 		for (Subject subject : student.getSubjectList()) {
-			String sql = " insert into student values(student_seq.nextval, ?, ?, ?, ?) ";
+			String sql = " insert into studentsubject values(?, ?) ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, student.getSname());
-			pstmt.setInt(2, student.getSage());
-			pstmt.setString(3, student.getSgender());
-			pstmt.setInt(4, subject.getSubNo());
+			pstmt.setInt(1, student.getSno());
+			pstmt.setInt(2, subject.getSubNo());
 			pstmt.executeUpdate();
 		}
 	}

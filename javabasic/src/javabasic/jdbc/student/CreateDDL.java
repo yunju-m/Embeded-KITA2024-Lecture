@@ -18,6 +18,7 @@ public class CreateDDL {
 		// 객체 생성
 		String subjectSql = createSubjectSql();
 		String studentSql = createStudentSql();
+		String studentsubjectSql = createStudentSubjectSql();
 		String subjectSequenceSql = createSubjectSequenceSql();
 		String studentSequenceSql = createStudentSequenceSql();
 
@@ -27,6 +28,7 @@ public class CreateDDL {
 			stmt = conn.createStatement();
 			stmt.execute(subjectSql);
 			stmt.execute(studentSql);
+			stmt.execute(studentsubjectSql);
 			stmt.execute(subjectSequenceSql);
 			stmt.execute(studentSequenceSql);
 		} catch (SQLException sqle) {
@@ -58,8 +60,18 @@ public class CreateDDL {
 		sb.append(" sno number primary key, ");
 		sb.append(" sname varchar2(20), ");
 		sb.append(" sage number, ");
-		sb.append(" sgender char(1), ");
+		sb.append(" sgender char(1) ");
+		sb.append(")");
+		return sb.toString();
+	}
+
+	// StudentSubject테이블 생성 쿼리
+	private String createStudentSubjectSql() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(" create table studentsubject( ");
+		sb.append(" sno number, ");
 		sb.append(" subno number, ");
+		sb.append(" foreign key (sno) references student(sno), ");
 		sb.append(" foreign key (subno) references subject(subno) ");
 		sb.append(")");
 		return sb.toString();
