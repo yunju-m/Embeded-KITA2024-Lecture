@@ -70,7 +70,7 @@ public class GuestDao {
 		pstmt.executeQuery();
 	}
 
-	// 게스트 나이 변경 업데이트 메소드
+	// 게스트 업데이트 메소드
 	public void updateGuestAgeSql(Guest guest) throws SQLException {
 		String sql = " UPDATE GUEST SET GNAME = ?, GAGE = ?, GGENDER = ? WHERE GNO = ? ";
 		pstmt = conn.prepareStatement(sql);
