@@ -32,6 +32,10 @@ public class GsonEx1 {
 		// Json 객체를 Json 문자열로 변환
 		String JsonStr = gson3.toJson(jsonObject);
 		System.out.println(JsonStr);
+		
+		// Json 문자열을 Json 객체로 변환
+		Post post = gson3.fromJson(JsonStr, Post.class);
+		System.out.println(post);
 
 		// Java 객체를 Json 문자열로 변환
 		Person person = new Person("홍길동", 30);
