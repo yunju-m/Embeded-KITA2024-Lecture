@@ -37,6 +37,38 @@
 			left outer join COMM C on C.blog_id = A.blog_id
 	</select>
 	
+	<sql id="selectCommLet">
+      select comm_id, comm_title, comm_content, blog_id
+      from Comm
+   	</sql>
+   
+   <select id="selectCommsByBlogId" parameterType="CommentSearcher" resultMap="commResultMap">
+      <include refid="selectCommLet"/>
+      where blog_id = #{blogId}
+      <if test="searchValue != null">
+         <!--
+         <if test="searchKey=='title'">
+            and comm_title like '%'||#{searchValue}||'%'
+         </if>
+         <if test="searchKey=='content'">
+            and comm_content like '%'||#{searchValue}||'%'
+         </if>
+         -->
+         <choose>
+            <when test="searchKey=='title'">
+               and comm_title like '%'||#{searchValue}||'%'
+            </when>
+            <when test="searchKey=='content'">
+               and comm_content like '%'||#{searchValue}||'%'
+            </when>
+            <otherwise>
+               and 1 = 1
+            </otherwise>
+         </choose>
+      </if>
+      order by comm_id desc
+   </select>
+	
 	<insert id="insertBlog" parameterType="Blog">
 		insert into blog
 		values(seq_blog.nextval, #{blogName}, #{blogTitle}, 0)

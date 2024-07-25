@@ -55,6 +55,15 @@ public class BlogMain {
 					System.out.println("\t" + comm);
 				}
 			}
+			
+			// 6. comment 리스트 검색
+			CommentSearcher cs = new CommentSearcher(1, "content", "내용");
+			List<Comment> commentList = ss.selectList("selectCommsByBlogId", cs);
+			for (Comment comment : commentList) {
+				System.out.println(comment);
+			}
+			
+			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		} finally {
