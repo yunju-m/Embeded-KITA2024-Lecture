@@ -13,6 +13,10 @@ public class Blog {
 
 	public Blog() {
 	}
+	
+	public Blog(Integer blogId) {
+		this.blogId = blogId;
+	}
 
 	public Blog(int blogId, String blogName, String blogTitle, Author author, List<Comment> comms, int blogAuthorId) {
 		super();
