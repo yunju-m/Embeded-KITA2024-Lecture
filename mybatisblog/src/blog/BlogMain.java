@@ -2,6 +2,7 @@ package blog;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -63,6 +64,17 @@ public class BlogMain {
 				System.out.println(comment);
 			}
 			
+			// 7. commentId에 해당하는 comment 리스트 검색
+			List<Integer> commIdList = new ArrayList<Integer>();
+			commIdList.add(1);
+			commIdList.add(2);
+			commIdList.add(3);
+			commIdList.add(4);
+			List<Comment> commentList2
+				= ss.selectList("selectCommsByCommIds", commIdList);
+			for (Comment comment : commentList2) {
+				System.out.println(comment);
+			}
 			
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
